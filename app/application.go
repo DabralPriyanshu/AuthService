@@ -46,6 +46,6 @@ func (app *Application) Run() error {
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
-	fmt.Println("Starting server on ", app.Config.Addr)
+	fmt.Println("Starting server on", app.Config.Addr)
 	return server.ListenAndServe()
 }
