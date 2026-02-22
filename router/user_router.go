@@ -11,7 +11,7 @@ type UserRouter struct {
 }
 
 func (ur *UserRouter) Register(r chi.Router) {
-	r.Get("/register", ur.UserController.RegisterUser)
+	r.Get("/profile", ur.UserController.GetByUserId)
 
 }
 

@@ -1,6 +1,7 @@
 package app
 
 import (
+	dbConfig "Auth/config/db"
 	config "Auth/config/env"
 	"Auth/controllers"
 	db "Auth/db/repositories"
@@ -36,7 +37,11 @@ func NewApplication(config Config) *Application {
 
 }
 func (app *Application) Run() error {
-	ur := db.NewUserRepository()
+	dbInstance, err := dbConfig.SetupDB()
+	if err != nil {
+		fmt.Println("Error setting db", err)
+	}
+	ur := db.NewUserRepository(dbInstance)
 	us := services.NewUserService(ur)
 	uc := controllers.NewUserController(us)
 	uRouter := router.NewUserRouter(uc)
