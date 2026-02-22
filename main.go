@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	config := app.Config{Addr: ":3003"}
-	app := app.Application{Config: config}
+	config := app.NewConfig(":3003")
+	app := app.NewApplication(*config)
 	app.Run()
 }
