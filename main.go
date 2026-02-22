@@ -2,10 +2,12 @@ package main
 
 import (
 	"Auth/app"
+	config "Auth/config/env"
 )
 
 func main() {
-	config := app.NewConfig(":3003")
+	config.Load()
+	config := app.NewConfig()
 	app := app.NewApplication(*config)
 	app.Run()
 }

@@ -1,6 +1,8 @@
 package app
 
 import (
+	config "Auth/config/env"
+	"Auth/router"
 	"fmt"
 	"net/http"
 	"time"
@@ -17,8 +19,10 @@ type Application struct {
 }
 
 // constructor for config
-func NewConfig(addr string) *Config {
-	return &Config{Addr: addr}
+func NewConfig() *Config {
+	port :=
+		config.GetString("PORT", ":8080")
+	return &Config{Addr: port}
 
 }
 
@@ -30,7 +34,7 @@ func NewApplication(config Config) *Application {
 func (app *Application) Run() error {
 	server := &http.Server{
 		Addr:         app.Config.Addr,
-		Handler:      nil,
+		Handler:      router.SetupRouter(),  //will return  chi router reference
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
