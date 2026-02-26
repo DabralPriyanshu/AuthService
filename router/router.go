@@ -3,6 +3,7 @@ package router
 import (
 	"Auth/controllers"
 	"Auth/middlewares"
+	"Auth/utils"
 
 	"github.com/go-chi/chi/v5/middleware"
 
@@ -19,6 +20,7 @@ func SetupRouter(UserRouter Router) *chi.Mux {
 	chiRouter.Use(middleware.Logger)
 	chiRouter.Use(middlewares.RateLimitMiddleware)
 	//start defining routes
+	chiRouter.HandleFunc("/fakestoreservice/*", utils.ProxyToService("https://fakestoreapi.com", "/fakestoreservice"))
 	chiRouter.Get("/ping", controllers.PingHandler)
 	UserRouter.Register(chiRouter)
 	return chiRouter
